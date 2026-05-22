@@ -97,14 +97,21 @@ body {
     drop-shadow(0 0 40px rgba(224, 16, 32, 0.25));
 }
 
-.x-sep { color: var(--text-muted); font-size: 0.75rem; }
+.x-sep {
+  color: var(--red-bright);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-shadow: 0 0 10px var(--red-bright);
+  line-height: 1;
+}
 
 .presents {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   letter-spacing: 0.4em;
-  color: var(--text-muted);
+  color: var(--white);
   margin-bottom: 18px;
+  text-shadow: 0 0 12px rgba(255,255,255,0.4);
 }
 
 .title {
@@ -138,10 +145,11 @@ body {
 
 .subtitle {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--text-muted);
+  font-size: 0.9rem;
+  color: var(--white);
   letter-spacing: 0.12em;
   margin-bottom: 22px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
 }
 
 .tags {

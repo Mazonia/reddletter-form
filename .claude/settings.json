@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:forms.gle)",
-      "WebFetch(domain:docs.google.com)"
+      "WebFetch(domain:docs.google.com)",
+      "Bash(git init *)",
+      "Bash(git commit *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)"
     ]
   }
 }
