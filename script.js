@@ -62,7 +62,8 @@
   // Numeric-only enforcement on WhatsApp field
   whatsapp.addEventListener('input', () => {
     whatsapp.value = whatsapp.value.replace(/\D/g, '');
-    whatsappError.classList.add('hidden');
+    fieldErrors['whatsapp'].msg.classList.add('hidden');
+    fieldErrors['whatsapp'].el.classList.remove('error');
   });
   whatsapp.addEventListener('keydown', (e) => {
     const allowed = ['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Enter','Home','End'];
@@ -127,8 +128,6 @@
   }
 
   form.addEventListener('submit', (e) => {
-    msg.className = 'form-msg hidden';
-
     if (!validate()) {
       e.preventDefault();
       return;
