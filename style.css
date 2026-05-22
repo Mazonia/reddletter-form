@@ -462,6 +462,13 @@ select:focus {
 
 input.error, select.error { border-color: #ff4444; box-shadow: 0 0 0 3px rgba(255,68,68,0.15); }
 
+.field-error {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #ff6b6b;
+  margin-top: 4px;
+}
+
 /* ── Radio group ──────────────────────────────────────────────── */
 .radio-group {
   display: flex;

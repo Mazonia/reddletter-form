@@ -38,11 +38,13 @@
   const msg       = document.getElementById('form-msg');
   const btn       = form.querySelector('.submit-btn');
   const btnText   = btn.querySelector('.btn-text');
-  const whatsapp  = document.getElementById('whatsapp');
+  const whatsapp      = document.getElementById('whatsapp');
+  const whatsappError = document.getElementById('whatsapp-error');
 
   // Numeric-only enforcement on WhatsApp field
   whatsapp.addEventListener('input', () => {
     whatsapp.value = whatsapp.value.replace(/\D/g, '');
+    whatsappError.classList.add('hidden');
   });
   whatsapp.addEventListener('keydown', (e) => {
     const allowed = ['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Enter','Home','End'];
@@ -72,8 +74,11 @@
       email.classList.add('error'); ok = false;
     }
 
+    whatsappError.classList.add('hidden');
     if (whatsapp.value && (!/^\d+$/.test(whatsapp.value) || whatsapp.value.length < 10)) {
-      whatsapp.classList.add('error'); ok = false;
+      whatsapp.classList.add('error');
+      whatsappError.classList.remove('hidden');
+      ok = false;
     }
 
     form.querySelectorAll('select[required]').forEach(el => {
