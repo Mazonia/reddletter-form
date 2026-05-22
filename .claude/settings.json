@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:forms.gle)",
+      "WebFetch(domain:docs.google.com)"
+    ]
+  }
+}
