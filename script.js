@@ -30,12 +30,29 @@
   setInterval(draw, 55);
 })();
 
-// Form handling — posts to Google Forms via hidden iframe
+// Form handling
 (function () {
-  const form = document.getElementById('reg-form');
-  const msg = document.getElementById('form-msg');
-  const btn = form.querySelector('.submit-btn');
-  const btnText = btn.querySelector('.btn-text');
+  const form      = document.getElementById('reg-form');
+  const formSec   = document.getElementById('form-section');
+  const successSec = document.getElementById('success-card');
+  const msg       = document.getElementById('form-msg');
+  const btn       = form.querySelector('.submit-btn');
+  const btnText   = btn.querySelector('.btn-text');
+  const whatsapp  = document.getElementById('whatsapp');
+
+  // Numeric-only enforcement on WhatsApp field
+  whatsapp.addEventListener('input', () => {
+    whatsapp.value = whatsapp.value.replace(/\D/g, '');
+  });
+  whatsapp.addEventListener('keydown', (e) => {
+    const allowed = ['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Enter','Home','End'];
+    if (!allowed.includes(e.key) && !/^\d$/.test(e.key)) e.preventDefault();
+  });
+  whatsapp.addEventListener('paste', (e) => {
+    e.preventDefault();
+    const pasted = e.clipboardData ? e.clipboardData.getData('text') : '';
+    whatsapp.value = pasted.replace(/\D/g, '');
+  });
 
   function showMsg(text, type) {
     msg.textContent = text;
@@ -45,39 +62,41 @@
   function validate() {
     let ok = true;
 
-    // Required text/email/tel inputs
     form.querySelectorAll('input[required]:not([type="checkbox"]):not([type="radio"])').forEach(el => {
       el.classList.remove('error');
       if (!el.value.trim()) { el.classList.add('error'); ok = false; }
     });
 
-    // Email format
     const email = form.querySelector('#email');
     if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
       email.classList.add('error'); ok = false;
     }
 
-    // Required selects
+    if (whatsapp.value && !/^\d+$/.test(whatsapp.value)) {
+      whatsapp.classList.add('error'); ok = false;
+    }
+
     form.querySelectorAll('select[required]').forEach(el => {
       el.classList.remove('error');
       if (!el.value) { el.classList.add('error'); ok = false; }
     });
 
-    // Radio group — check at least one selected
     const radioName = form.querySelector('input[type="radio"]')?.name;
-    if (radioName) {
-      const checked = form.querySelector(`input[name="${radioName}"]:checked`);
-      if (!checked) {
-        form.querySelectorAll(`input[name="${radioName}"]`).forEach(r => r.classList.add('error'));
-        ok = false;
-      }
+    if (radioName && !form.querySelector(`input[name="${radioName}"]:checked`)) {
+      form.querySelectorAll(`input[name="${radioName}"]`).forEach(r => r.classList.add('error'));
+      ok = false;
     }
 
-    // Checkbox
     const agree = form.querySelector('#agree');
     if (!agree.checked) { agree.classList.add('error'); ok = false; }
 
     return ok;
+  }
+
+  function showSuccess() {
+    formSec.classList.add('hidden');
+    successSec.classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   form.addEventListener('submit', (e) => {
@@ -85,30 +104,26 @@
 
     if (!validate()) {
       e.preventDefault();
-      showMsg('Please fill in all required fields.', 'error-msg');
+      showMsg('Please fill in all required fields correctly.', 'error-msg');
       return;
     }
 
-    // Valid — let the form submit natively to the hidden iframe
     btn.disabled = true;
     btnText.textContent = 'SUBMITTING...';
 
-    // Google Forms doesn't send a success response we can read (CORS),
-    // so we show success after a short delay once the iframe loads
     const iframe = document.querySelector('iframe[name="hidden-iframe"]');
-    iframe.addEventListener('load', onSuccess, { once: true });
+    let fired = false;
 
-    // Fallback in case load event doesn't fire
-    setTimeout(onSuccess, 4000);
+    function onDone() {
+      if (fired) return;
+      fired = true;
+      showSuccess();
+    }
+
+    iframe.addEventListener('load', onDone, { once: true });
+    setTimeout(onDone, 4000);
   });
 
-  function onSuccess() {
-    btnText.textContent = 'REGISTERED ✓';
-    showMsg('Registration successful! You will receive a confirmation email. See you on 29th May. 🏆', 'success');
-    form.reset();
-  }
-
-  // Clear error styling on user input
   form.querySelectorAll('input, select').forEach(el => {
     el.addEventListener('input', () => el.classList.remove('error'));
     el.addEventListener('change', () => el.classList.remove('error'));

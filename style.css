@@ -213,6 +213,123 @@ body {
   letter-spacing: 0.06em;
 }
 
+/* ── Write-up blurb ───────────────────────────────────────────── */
+.writeup {
+  margin: 28px auto 0;
+  max-width: 560px;
+  border: 1px solid rgba(224, 16, 32, 0.2);
+  border-radius: 10px;
+  padding: 18px 24px;
+  background: rgba(224, 16, 32, 0.05);
+  backdrop-filter: blur(6px);
+}
+
+.writeup p {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.writeup p:first-child {
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+/* ── Success Card ─────────────────────────────────────────────── */
+.success-card {
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid rgba(224, 16, 32, 0.4);
+  border-radius: 12px;
+  padding: 52px 36px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 60px rgba(224, 16, 32, 0.15);
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.5s ease both;
+}
+
+.success-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--red-bright), transparent);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.success-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--red-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--red-bright);
+  margin: 0 auto 24px;
+  box-shadow: 0 0 24px rgba(224, 16, 32, 0.5), inset 0 0 16px rgba(224, 16, 32, 0.1);
+  text-shadow: 0 0 12px var(--red-bright);
+}
+
+.success-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 0.15em;
+  margin-bottom: 14px;
+  text-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.success-msg {
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+.success-msg strong { color: var(--red-bright); }
+
+.success-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  transition: transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.45);
+}
+
 /* ── Form Section ─────────────────────────────────────────────── */
 .form-section {
   background: var(--surface);
