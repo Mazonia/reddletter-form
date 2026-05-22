@@ -32,14 +32,32 @@
 
 // Form handling
 (function () {
-  const form      = document.getElementById('reg-form');
-  const formSec   = document.getElementById('form-section');
+  const form       = document.getElementById('reg-form');
+  const formSec    = document.getElementById('form-section');
   const successSec = document.getElementById('success-card');
-  const msg       = document.getElementById('form-msg');
-  const btn       = form.querySelector('.submit-btn');
-  const btnText   = btn.querySelector('.btn-text');
-  const whatsapp      = document.getElementById('whatsapp');
-  const whatsappError = document.getElementById('whatsapp-error');
+  const btn        = form.querySelector('.submit-btn');
+  const btnText    = btn.querySelector('.btn-text');
+  const whatsapp   = document.getElementById('whatsapp');
+
+  const fieldErrors = {
+    'full-name':   { el: null, msg: null },
+    'hacker-name': { el: null, msg: null },
+    'email':       { el: null, msg: null },
+    'whatsapp':    { el: null, msg: null },
+    'experience':  { el: null, msg: null },
+  };
+  Object.keys(fieldErrors).forEach(id => {
+    fieldErrors[id].el  = document.getElementById(id);
+    fieldErrors[id].msg = document.getElementById(id + '-error');
+  });
+  const studentError = document.getElementById('student-error');
+  const agreeError   = document.getElementById('agree-error');
+
+  function showError(id, show) {
+    const f = fieldErrors[id];
+    f.el.classList.toggle('error', show);
+    f.msg.classList.toggle('hidden', !show);
+  }
 
   // Numeric-only enforcement on WhatsApp field
   whatsapp.addEventListener('input', () => {
@@ -56,44 +74,48 @@
     whatsapp.value = pasted.replace(/\D/g, '');
   });
 
-  function showMsg(text, type) {
-    msg.textContent = text;
-    msg.className = 'form-msg ' + type;
-  }
-
   function validate() {
     let ok = true;
 
-    form.querySelectorAll('input[required]:not([type="checkbox"]):not([type="radio"])').forEach(el => {
-      el.classList.remove('error');
-      if (!el.value.trim()) { el.classList.add('error'); ok = false; }
-    });
+    // Full name
+    const emptyName = !fieldErrors['full-name'].el.value.trim();
+    showError('full-name', emptyName);
+    if (emptyName) ok = false;
 
-    const email = form.querySelector('#email');
-    if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-      email.classList.add('error'); ok = false;
-    }
+    // Hacker name
+    const emptyHandle = !fieldErrors['hacker-name'].el.value.trim();
+    showError('hacker-name', emptyHandle);
+    if (emptyHandle) ok = false;
 
-    whatsappError.classList.add('hidden');
-    if (whatsapp.value && (!/^\d+$/.test(whatsapp.value) || whatsapp.value.length < 10)) {
-      whatsapp.classList.add('error');
-      whatsappError.classList.remove('hidden');
-      ok = false;
-    }
+    // Email
+    const emailEl = fieldErrors['email'].el;
+    const emailBad = !emailEl.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value);
+    showError('email', emailBad);
+    if (emailBad) ok = false;
 
-    form.querySelectorAll('select[required]').forEach(el => {
-      el.classList.remove('error');
-      if (!el.value) { el.classList.add('error'); ok = false; }
-    });
+    // WhatsApp
+    const waBad = !whatsapp.value.trim() || !/^\d+$/.test(whatsapp.value) || whatsapp.value.length < 10;
+    showError('whatsapp', waBad);
+    if (waBad) ok = false;
 
+    // Experience
+    const expEmpty = !fieldErrors['experience'].el.value;
+    showError('experience', expEmpty);
+    if (expEmpty) ok = false;
+
+    // Student radio
     const radioName = form.querySelector('input[type="radio"]')?.name;
-    if (radioName && !form.querySelector(`input[name="${radioName}"]:checked`)) {
-      form.querySelectorAll(`input[name="${radioName}"]`).forEach(r => r.classList.add('error'));
-      ok = false;
-    }
+    const noRadio = radioName && !form.querySelector(`input[name="${radioName}"]:checked`);
+    form.querySelectorAll(`input[name="${radioName}"]`).forEach(r => r.classList.toggle('error', !!noRadio));
+    studentError.classList.toggle('hidden', !noRadio);
+    if (noRadio) ok = false;
 
+    // Agree checkbox
     const agree = form.querySelector('#agree');
-    if (!agree.checked) { agree.classList.add('error'); ok = false; }
+    const noAgree = !agree.checked;
+    agree.classList.toggle('error', noAgree);
+    agreeError.classList.toggle('hidden', !noAgree);
+    if (noAgree) ok = false;
 
     return ok;
   }
@@ -109,7 +131,6 @@
 
     if (!validate()) {
       e.preventDefault();
-      showMsg('Please fill in all required fields correctly.', 'error-msg');
       return;
     }
 
