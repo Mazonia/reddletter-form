@@ -72,7 +72,7 @@
       email.classList.add('error'); ok = false;
     }
 
-    if (whatsapp.value && !/^\d+$/.test(whatsapp.value)) {
+    if (whatsapp.value && (!/^\d+$/.test(whatsapp.value) || whatsapp.value.length < 10)) {
       whatsapp.classList.add('error'); ok = false;
     }
 
