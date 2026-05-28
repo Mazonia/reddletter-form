@@ -43,12 +43,12 @@
 
       <div class="dates">
         <div class="date-block">
-          <span class="date-label">Registration Ends</span>
+          <span class="date-label">Registration Ended</span>
           <span class="date-val">25th May</span>
         </div>
         <div class="date-sep">▶</div>
         <div class="date-block">
-          <span class="date-label">Challenge Goes Live</span>
+          <span class="date-label">Challenge Went Live</span>
           <span class="date-val">29th May</span>
         </div>
       </div>
@@ -56,111 +56,28 @@
       <p class="reward">🏆 First Blood Reward</p>
 
       <div class="writeup">
-        <p>🔮🧙🏾 ssshhadesCTF_ opens the Red Letter Gate.</p>
+        <p>🔮🧙🏾 ssshhadesCTF_ opened the Red Letter Gate.</p>
         <p>An Eid-ul-Adha Boot2Root challenge for those who understand that the quietest services often conceal the
           deadliest flaws.</p>
       </div>
     </header>
 
     <section class="form-section" id="form-section">
-      <h2 class="form-title">Register Now</h2>
-
-      <form id="reg-form"
-        action="https://docs.google.com/forms/d/e/1FAIpQLSc94NJTrouUWO3TMEptfrqIodtu8ptCb4_eW6a7JwJ_G0lIow/formResponse"
-        method="POST" target="hidden-iframe" novalidate>
-
-        <div class="field-row">
-          <div class="field">
-            <label for="full-name">Full Name <span class="req">*</span></label>
-            <input type="text" id="full-name" name="entry.134581250" placeholder="Your full name" required />
-            <span class="field-error hidden" id="full-name-error">Please enter your full name.</span>
-          </div>
-          <div class="field">
-            <label for="hacker-name">Username / Hacker Name <span class="req">*</span></label>
-            <input type="text" id="hacker-name" name="entry.802131618" placeholder="Your CTF handle" required />
-            <span class="field-error hidden" id="hacker-name-error">Please enter your username or hacker name.</span>
-          </div>
+      <div class="closed-notice">
+        <h2 class="closed-title">Registration Closed</h2>
+        <p class="closed-message">We are no longer accepting registrations for the Red Letter Gate challenge.</p>
+        <p class="closed-details">Thank you to all participants who registered. The challenge has concluded.</p>
+        <div class="closed-actions">
+          <p class="action-label">Stay connected:</p>
+          <a href="https://chat.whatsapp.com/JvIY40FQ3JvF4fVC98jDYG" target="_blank" class="whatsapp-btn">
+            <i class="fa-brands fa-whatsapp" style="font-size:1.1rem"></i>
+            WhatsApp Group
+          </a>
+          <a href="https://discord.gg/Zgm2YYXDE" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord" style="font-size:1.1rem"></i>
+            Discord Server
+          </a>
         </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label for="email">Email Address <span class="req">*</span></label>
-            <input type="email" id="email" name="entry.917787244" placeholder="you@example.com" required />
-            <span class="field-error hidden" id="email-error">Please enter a valid email address.</span>
-          </div>
-          <div class="field">
-            <label for="whatsapp">WhatsApp Number <span class="req">*</span></label>
-            <input type="tel" id="whatsapp" name="entry.2030506870" placeholder="2348012345678"
-              inputmode="numeric" pattern="[0-9]{10,}" minlength="10" required />
-            <span class="field-error hidden" id="whatsapp-error">Please enter a valid WhatsApp number (min. 10 digits).</span>
-          </div>
-        </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label for="discord">Discord Profile</label>
-            <input type="text" id="discord" name="entry.1527573884" placeholder="@username or username#0000" />
-          </div>
-          <div class="field">
-            <label for="experience">CTF Experience <span class="req">*</span></label>
-            <select id="experience" name="entry.1190728481" required>
-              <option value="" disabled selected>Select your level</option>
-              <option value="Beginner (0 - 1 year)">Beginner (0–1 yr)</option>
-              <option value="Intermediate (1 - 3 year)">Intermediate (1–3 yrs)</option>
-              <option value="Advanced/Experienced (3+ years)">Advanced (3+ yrs)</option>
-            </select>
-            <span class="field-error hidden" id="experience-error">Please select your experience level.</span>
-          </div>
-        </div>
-
-        <div class="field">
-          <label>Are you a student? <span class="req">*</span></label>
-          <div class="radio-group">
-            <label class="radio-label">
-              <input type="radio" name="entry.1364474925" value="Yes" required />
-              <span>Yes</span>
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="entry.1364474925" value="No" required />
-              <span>No</span>
-            </label>
-          </div>
-          <span class="field-error hidden" id="student-error">Please indicate whether you are a student.</span>
-        </div>
-
-        <div class="field checkbox-field">
-          <label class="checkbox-label">
-            <input type="checkbox" id="agree" name="agree" required />
-            <span>I agree to participate fairly and abide by the competition rules <span class="req">*</span></span>
-          </label>
-          <span class="field-error hidden" id="agree-error">You must agree to the competition rules to register.</span>
-        </div>
-
-        <button type="submit" class="submit-btn">
-          <span class="btn-text">REGISTER FOR THE CHALLENGE</span>
-          <span class="btn-glow"></span>
-        </button>
-
-        <div id="form-msg" class="form-msg hidden"></div>
-      </form>
-    </section>
-
-    <!-- Success card — shown after submission -->
-    <section class="success-card hidden" id="success-card">
-      <div class="success-icon">✓</div>
-      <h2 class="success-title">You're In.</h2>
-      <p class="success-msg">Registration received. The Gate opens on <strong>29th May</strong> — join the community below and stay sharp.</p>
-      <p class="success-sub">Join our WhatsApp group and Discord server to get updates, announcements, and connect with
-        other challengers.</p>
-      <div class="success-actions">
-        <a href="https://chat.whatsapp.com/JvIY40FQ3JvF4fVC98jDYG" target="_blank" class="whatsapp-btn">
-          <i class="fa-brands fa-whatsapp" style="font-size:1.1rem"></i>
-          Join WhatsApp Group
-        </a>
-        <a href="https://discord.gg/Zgm2YYXDE" target="_blank" class="discord-btn">
-          <i class="fa-brands fa-discord" style="font-size:1.1rem"></i>
-          Join Discord Server
-        </a>
       </div>
     </section>
 
