@@ -32,7 +32,7 @@
 
 // Countdown — target: 29 May 2025 midnight local time
 (function () {
-  const TARGET = new Date('2025-05-29T00:00:00');
+  const TARGET = new Date('2025-05-30T10:00:00');
 
   const hoursEl = document.getElementById('cd-hours');
   const minsEl  = document.getElementById('cd-minutes');
@@ -51,7 +51,7 @@
       timerEl.innerHTML = '<span class="countdown-live">&#9889; THE GATE IS LIVE</span>';
       if (titleEl) titleEl.textContent = 'The Gate Is Open';
       if (subEl)   subEl.textContent   = 'The challenge has begun. Good luck.';
-      if (dateEl)  dateEl.textContent  = '29th May 2025';
+      if (dateEl)  dateEl.textContent  = '30th May 2025 — 10:00 AM';
       return;
     }
 
