@@ -360,6 +360,130 @@ body {
   box-shadow: 0 8px 28px rgba(88, 101, 242, 0.45);
 }
 
+/* ── Countdown Section ────────────────────────────────────────── */
+.countdown-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 48px 36px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px rgba(224, 16, 32, 0.12), inset 0 1px 0 rgba(255,255,255,0.04);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.countdown-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--red-bright), transparent);
+}
+
+.closed-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--red-bright);
+  border: 1px solid var(--red-bright);
+  border-radius: 20px;
+  padding: 5px 16px;
+  margin-bottom: 24px;
+  background: rgba(224, 16, 32, 0.1);
+  text-shadow: 0 0 8px var(--red-bright);
+}
+
+.countdown-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  text-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.countdown-sub {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 32px;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: rgba(224, 16, 32, 0.08);
+  border: 1px solid rgba(224, 16, 32, 0.25);
+  border-radius: 10px;
+  padding: 16px 24px;
+  min-width: 90px;
+}
+
+.countdown-val {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--red-bright);
+  line-height: 1;
+  text-shadow: 0 0 20px var(--red-glow), 0 0 40px rgba(224,16,32,0.3);
+  letter-spacing: 0.05em;
+}
+
+.countdown-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.countdown-colon {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--red-bright);
+  opacity: 0.6;
+  margin-bottom: 24px;
+}
+
+.countdown-date {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.countdown-live {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--red-bright);
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 20px var(--red-bright);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
 /* ── Form Section ─────────────────────────────────────────────── */
 .form-section {
   background: var(--surface);

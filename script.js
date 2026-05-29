@@ -30,127 +30,41 @@
   setInterval(draw, 55);
 })();
 
-// Form handling
+// Countdown — target: 29 May 2025 midnight local time
 (function () {
-  const form       = document.getElementById('reg-form');
-  const formSec    = document.getElementById('form-section');
-  const successSec = document.getElementById('success-card');
-  const btn        = form.querySelector('.submit-btn');
-  const btnText    = btn.querySelector('.btn-text');
-  const whatsapp   = document.getElementById('whatsapp');
+  const TARGET = new Date('2025-05-29T00:00:00');
 
-  const fieldErrors = {
-    'full-name':   { el: null, msg: null },
-    'hacker-name': { el: null, msg: null },
-    'email':       { el: null, msg: null },
-    'whatsapp':    { el: null, msg: null },
-    'experience':  { el: null, msg: null },
-  };
-  Object.keys(fieldErrors).forEach(id => {
-    fieldErrors[id].el  = document.getElementById(id);
-    fieldErrors[id].msg = document.getElementById(id + '-error');
-  });
-  const studentError = document.getElementById('student-error');
-  const agreeError   = document.getElementById('agree-error');
+  const hoursEl = document.getElementById('cd-hours');
+  const minsEl  = document.getElementById('cd-minutes');
+  const secsEl  = document.getElementById('cd-seconds');
+  const timerEl = document.getElementById('countdown-timer');
+  const dateEl  = document.querySelector('.countdown-date');
+  const titleEl = document.querySelector('.countdown-title');
+  const subEl   = document.querySelector('.countdown-sub');
 
-  function showError(id, show) {
-    const f = fieldErrors[id];
-    f.el.classList.toggle('error', show);
-    f.msg.classList.toggle('hidden', !show);
-  }
+  function pad(n) { return String(n).padStart(2, '0'); }
 
-  // Numeric-only enforcement on WhatsApp field
-  whatsapp.addEventListener('input', () => {
-    whatsapp.value = whatsapp.value.replace(/\D/g, '');
-    fieldErrors['whatsapp'].msg.classList.add('hidden');
-    fieldErrors['whatsapp'].el.classList.remove('error');
-  });
-  whatsapp.addEventListener('keydown', (e) => {
-    const allowed = ['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Enter','Home','End'];
-    if (!allowed.includes(e.key) && !/^\d$/.test(e.key)) e.preventDefault();
-  });
-  whatsapp.addEventListener('paste', (e) => {
-    e.preventDefault();
-    const pasted = e.clipboardData ? e.clipboardData.getData('text') : '';
-    whatsapp.value = pasted.replace(/\D/g, '');
-  });
+  function tick() {
+    const diff = TARGET - Date.now();
 
-  function validate() {
-    let ok = true;
-
-    // Full name
-    const emptyName = !fieldErrors['full-name'].el.value.trim();
-    showError('full-name', emptyName);
-    if (emptyName) ok = false;
-
-    // Hacker name
-    const emptyHandle = !fieldErrors['hacker-name'].el.value.trim();
-    showError('hacker-name', emptyHandle);
-    if (emptyHandle) ok = false;
-
-    // Email
-    const emailEl = fieldErrors['email'].el;
-    const emailBad = !emailEl.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value);
-    showError('email', emailBad);
-    if (emailBad) ok = false;
-
-    // WhatsApp
-    const waBad = !whatsapp.value.trim() || !/^\d+$/.test(whatsapp.value) || whatsapp.value.length < 10;
-    showError('whatsapp', waBad);
-    if (waBad) ok = false;
-
-    // Experience
-    const expEmpty = !fieldErrors['experience'].el.value;
-    showError('experience', expEmpty);
-    if (expEmpty) ok = false;
-
-    // Student radio
-    const radioName = form.querySelector('input[type="radio"]')?.name;
-    const noRadio = radioName && !form.querySelector(`input[name="${radioName}"]:checked`);
-    form.querySelectorAll(`input[name="${radioName}"]`).forEach(r => r.classList.toggle('error', !!noRadio));
-    studentError.classList.toggle('hidden', !noRadio);
-    if (noRadio) ok = false;
-
-    // Agree checkbox
-    const agree = form.querySelector('#agree');
-    const noAgree = !agree.checked;
-    agree.classList.toggle('error', noAgree);
-    agreeError.classList.toggle('hidden', !noAgree);
-    if (noAgree) ok = false;
-
-    return ok;
-  }
-
-  function showSuccess() {
-    formSec.classList.add('hidden');
-    successSec.classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  form.addEventListener('submit', (e) => {
-    if (!validate()) {
-      e.preventDefault();
+    if (diff <= 0) {
+      timerEl.innerHTML = '<span class="countdown-live">&#9889; THE GATE IS LIVE</span>';
+      if (titleEl) titleEl.textContent = 'The Gate Is Open';
+      if (subEl)   subEl.textContent   = 'The challenge has begun. Good luck.';
+      if (dateEl)  dateEl.textContent  = '29th May 2025';
       return;
     }
 
-    btn.disabled = true;
-    btnText.textContent = 'SUBMITTING...';
+    const totalSecs = Math.floor(diff / 1000);
+    const hours     = Math.floor(totalSecs / 3600);
+    const minutes   = Math.floor((totalSecs % 3600) / 60);
+    const seconds   = totalSecs % 60;
 
-    const iframe = document.querySelector('iframe[name="hidden-iframe"]');
-    let fired = false;
+    hoursEl.textContent = pad(hours);
+    minsEl.textContent  = pad(minutes);
+    secsEl.textContent  = pad(seconds);
+  }
 
-    function onDone() {
-      if (fired) return;
-      fired = true;
-      showSuccess();
-    }
-
-    iframe.addEventListener('load', onDone, { once: true });
-    setTimeout(onDone, 4000);
-  });
-
-  form.querySelectorAll('input, select').forEach(el => {
-    el.addEventListener('input', () => el.classList.remove('error'));
-    el.addEventListener('change', () => el.classList.remove('error'));
-  });
+  tick();
+  setInterval(tick, 1000);
 })();
