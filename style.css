@@ -246,6 +246,15 @@ body {
   margin-bottom: 8px;
 }
 
+.flag-intro {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 28px;
+  letter-spacing: 0.05em;
+}
+
 /* ── Success Card ─────────────────────────────────────────────── */
 .success-card {
   text-align: center;

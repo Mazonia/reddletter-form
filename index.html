@@ -95,6 +95,70 @@
       </div>
     </section>
 
+    <!-- Flag submission form — revealed when countdown hits 0 -->
+    <section class="form-section hidden" id="flag-form-section">
+      <h2 class="form-title">⚑ Submit Your Flags</h2>
+      <p class="flag-intro">The Gate is open. Submit your captured flags below.</p>
+
+      <form id="flag-form"
+            action="https://docs.google.com/forms/d/e/1FAIpQLScydgFfyvv5qtSS7YLVLoSfSqsyiLq9nynzUcapxDKycVmeoQ/formResponse"
+            method="POST"
+            target="hidden-iframe"
+            novalidate>
+
+        <!-- Hidden fields required by Google Forms -->
+        <input type="hidden" name="fvv" value="1" />
+        <input type="hidden" name="partialResponse" value='[null,null,"-4463483988905645658"]' />
+        <input type="hidden" name="pageHistory" value="0" />
+        <input type="hidden" name="fbzx" value="-4463483988905645658" />
+
+        <div class="field-row">
+          <div class="field">
+            <label for="flag-name">Full Name <span class="req">*</span></label>
+            <input type="text" id="flag-name" name="entry.1227280876" placeholder="Your full name" required />
+            <span class="field-error hidden" id="flag-name-error">Please enter your full name.</span>
+          </div>
+          <div class="field">
+            <label for="flag-email">Email Address <span class="req">*</span></label>
+            <input type="email" id="flag-email" name="entry.1171416236" placeholder="you@example.com" required />
+            <span class="field-error hidden" id="flag-email-error">Please enter a valid email address.</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="flag1">Flag 1 (flag1.txt) <span class="req">*</span></label>
+          <input type="text" id="flag1" name="entry.1804622779" placeholder="flag{...}" required />
+          <span class="field-error hidden" id="flag1-error">Please enter Flag 1.</span>
+        </div>
+
+        <div class="field">
+          <label for="flag-root">Root Flag <span class="req">*</span></label>
+          <input type="text" id="flag-root" name="entry.518516166" placeholder="flag{...}" required />
+          <span class="field-error hidden" id="flag-root-error">Please enter the Root Flag.</span>
+        </div>
+
+        <button type="submit" class="submit-btn">
+          <span class="btn-text">SUBMIT FLAGS</span>
+          <span class="btn-glow"></span>
+        </button>
+
+        <div id="flag-form-msg" class="form-msg hidden"></div>
+      </form>
+    </section>
+
+    <!-- Flag submission success card -->
+    <section class="success-card hidden" id="flag-success-card">
+      <div class="success-icon">⚑</div>
+      <h2 class="success-title">Flags Received.</h2>
+      <p class="success-msg">Your submission has been recorded. Results will be announced on Discord.</p>
+      <div class="success-actions">
+        <a href="https://discord.gg/Zgm2YYXDE" target="_blank" class="discord-btn">
+          <i class="fa-brands fa-discord" style="font-size:1.1rem"></i>
+          Join Discord for Results
+        </a>
+      </div>
+    </section>
+
     <footer class="site-footer">
       <p class="socials-label">Our Socials</p>
       <div class="socials">
