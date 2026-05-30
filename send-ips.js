@@ -43,6 +43,15 @@ function buildEmail(ip, isSolo) {
     Submit your flags at <a href="https://redletterctf.geekbyte.tech" style="color:#ff1a2e;">redletterctf.geekbyte.tech</a> once the challenge goes live at <strong style="color:#e8e0e0;">10:00 AM</strong>.
   </p>
 
+  <div style="background:rgba(224,16,32,0.08);border:1px solid rgba(224,16,32,0.5);border-left:4px solid #ff1a2e;border-radius:8px;padding:16px 20px;margin:20px 0;">
+    <p style="font-size:0.78rem;letter-spacing:0.15em;color:#ff1a2e;margin:0 0 6px;font-weight:bold;">⏳ MACHINE DEADLINE</p>
+    <p style="font-size:0.95rem;color:#f0eaea;margin:0;line-height:1.7;">
+      You have <strong style="color:#ff1a2e;">30 hours</strong> from the start of the challenge.<br/>
+      Machines go <strong style="color:#ff1a2e;">offline at 4:00 PM on 31st May 2026</strong>.<br/>
+      <span style="font-size:0.82rem;color:#8a7a7a;">Capture and submit your flags before the gate closes.</span>
+    </p>
+  </div>
+
   <p style="font-size:1rem;line-height:1.7;margin-top:16px;">
     Good luck — First Blood awaits. 🏆
   </p>
