@@ -2,19 +2,30 @@ const { Resend } = require('resend');
 
 const resend = new Resend('re_Fw419LQA_EBb21SrTQiAN2oVyZaUJXH8n');
 
-const FROM    = 'RedLetter Gate <info@geekbyte.tech>';
+const FROM = 'RedLetter Gate <info@geekbyte.tech>';
 const SUBJECT = 'Red Letter Gate — Your Machine IP';
 
-// IP assignments
+// ─── TEST PREVIEW ────────────────────────────────────────────────────────────
+// Enter your email below to receive a preview of how the IP mail looks.
+// Set TEST_MODE = true to send ONLY to your email (nothing goes to participants).
+// Set TEST_MODE = false to send to all participants below.
+
+const TEST_MODE = true;                       // ← flip to false for real send
+const TEST_EMAIL = 'khidmazonia@gmail.com';          // ← your email here
+const TEST_IP = '54.88.23.28';             // ← pick any IP to preview with
+const TEST_SOLO = true;                      // ← true = solo variant, false = shared variant
+// ─────────────────────────────────────────────────────────────────────────────
+
+// IP assignments — ✅ ALL SENT (30 May 2026, ~10:00 AM)
 // Solo players get their own machine; grouped players share one machine
 const assignments = [
-  { ip: '52.55.39.205', emails: ['heyonyx@proton.me'] },
-  { ip: '54.89.61.10',  emails: ['Benjaminasareagyapong2006@gmail.com'] },
-  { ip: '54.88.23.28',  emails: ['pauljorgin222@gmail.com', 'twumasiisabella78813@gmail.com', 'princekoomson03@gmail.com', 'Klausevoyage@gmail.com'] },
-  { ip: '52.91.75.166', emails: ['Yeboahaffuljonathan@gmail.com', 'nyarkohaa00@gmail.com', 'nrichardn96@gmail.com', 'jhabtee@gmail.com'] },
-  { ip: '54.211.173.26',emails: ['philipduncanglavee@gmail.com', 'gkpodo369@gmail.com', 'ahlaamwumpini@gmail.com', 'tokoryhayford@gmail.com'] },
-  { ip: '3.81.225.254', emails: ['mrkonde10@gmail.com', 'richardkumah714@gmail.com', 'anonymousmsf4@gmail.com'] },
-  { ip: '54.196.41.107',emails: ['ajongbahj@gmail.com', 'quayelemuel50@gmail.com', 'baidooprinceaikins@gmail.com'] },
+  // { ip: '52.55.39.205', emails: ['heyonyx@proton.me'] },
+  // { ip: '54.89.61.10',  emails: ['Benjaminasareagyapong2006@gmail.com'] },
+  // { ip: '54.88.23.28',  emails: ['pauljorgin222@gmail.com', 'twumasiisabella78813@gmail.com', 'princekoomson03@gmail.com', 'Klausevoyage@gmail.com'] },
+  // { ip: '52.91.75.166', emails: ['Yeboahaffuljonathan@gmail.com', 'nyarkohaa00@gmail.com', 'nrichardn96@gmail.com', 'jhabtee@gmail.com'] },
+  // { ip: '54.211.173.26',emails: ['philipduncanglavee@gmail.com', 'gkpodo369@gmail.com', 'ahlaamwumpini@gmail.com', 'tokoryhayford@gmail.com'] },
+  // { ip: '3.81.225.254', emails: ['mrkonde10@gmail.com', 'richardkumah714@gmail.com', 'anonymousmsf4@gmail.com'] },
+  // { ip: '54.196.41.107',emails: ['ajongbahj@gmail.com', 'quayelemuel50@gmail.com', 'baidooprinceaikins@gmail.com'] },
 ];
 
 function buildEmail(ip, isSolo) {
@@ -62,6 +73,25 @@ function buildEmail(ip, isSolo) {
 }
 
 async function sendAll() {
+  // ── TEST MODE — preview only ──────────────────────────────────────────────
+  if (TEST_MODE) {
+    console.log(`[TEST MODE] Sending preview to ${TEST_EMAIL} with IP ${TEST_IP}...\n`);
+    try {
+      await resend.emails.send({
+        from: FROM,
+        to: TEST_EMAIL,
+        subject: `[PREVIEW] ${SUBJECT}`,
+        html: buildEmail(TEST_IP, TEST_SOLO),
+      });
+      console.log(`✓  Preview sent to ${TEST_EMAIL}  →  ${TEST_IP}`);
+    } catch (err) {
+      console.error(`✗  Preview failed — ${err.message}`);
+    }
+    console.log('\n[TEST MODE] Done. Flip TEST_MODE to false to send to all participants.');
+    return;
+  }
+
+  // ── REAL SEND ─────────────────────────────────────────────────────────────
   let sent = 0, failed = 0;
   const total = assignments.reduce((sum, a) => sum + a.emails.length, 0);
   console.log(`Sending IP assignments to ${total} participants...\n`);
@@ -71,10 +101,10 @@ async function sendAll() {
     for (const email of emails) {
       try {
         await resend.emails.send({
-          from:    FROM,
-          to:      email,
+          from: FROM,
+          to: email,
           subject: SUBJECT,
-          html:    buildEmail(ip, isSolo),
+          html: buildEmail(ip, isSolo),
         });
         console.log(`✓  ${email}  →  ${ip}`);
         sent++;
